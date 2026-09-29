@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>YSD Aerial Lift Pre-Inspection</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="brand-header">
+      <div class="brand-topline">
+        <span class="company-name">YOUNG &amp; SONS DRYWALL</span>
+        <span class="document-label">YSD SAFETY DEPARTMENT</span>
+      </div>
+      <div class="brand-main">
+        <div class="brand-identity">
+          <div class="logo-wrap">
+            <img src="assets/ysd-logo.png" alt="Young &amp; Sons Drywall logo" class="logo">
+          </div>
+          <div class="title-block">
+            <div class="eyebrow">EQUIPMENT SAFETY RECORD</div>
+            <h1>Aerial Lift Pre-Inspection</h1>
+            <p>Complete before each shift, before use, and whenever equipment condition changes.</p>
+          </div>
+        </div>
+        <div class="document-meta" aria-label="Document information">
+          <div class="meta-item"><span>FORM</span><strong>YSD-AL-01</strong></div>
+          <div class="meta-item"><span>REVISION</span><strong>09/2026</strong></div>
+          <div class="inspection-badge"><span class="badge-dot"></span> PRE-USE INSPECTION</div>
+        </div>
+      </div>
+      <div class="brand-rule"></div>
+    </header>
+
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <form id="inspectionForm">
+      <section class="card">
+        <div class="section-head"><span>1</span><div><h2>Operator & Job Information</h2><p>Identify the worker, project, and equipment.</p></div></div>
+        <div class="grid">
+          <label>Operator Name<input name="operator" required autocomplete="name"></label>
+          <label>Date<input type="date" name="date" required></label>
+          <label>Project / Jobsite<input name="project" required></label>
+          <label>Foreman / Supervisor<input name="supervisor"></label>
+          <label>Lift Type
+            <select name="liftType" required><option value="">Select…</option><option>Scissor Lift</option><option>Boom Lift</option><option>Other Aerial Lift</option></select>
+          </label>
+          <label>Manufacturer<input name="manufacturer" placeholder="e.g., Genie"></label>
+          <label>Model<input name="model" placeholder="e.g., GS-19"></label>
+          <label>Unit / YSD ID<input name="unitId" placeholder="e.g., YSD-39"></label>
+          <label>Hour Meter<input name="hours" inputmode="decimal"></label>
+          <label>Location / Area<input name="location"></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-head"><span>2</span><div><h2>Pre-Use Inspection</h2><p>Mark each item. Use Notes for anything that needs attention.</p></div></div>
+        <div id="checklist" class="checklist"></div>
+        <label class="full-label">General Notes<textarea name="generalNotes" rows="3" placeholder="Describe damage, defects, repairs needed, or other observations."></textarea></label>
+      </section>
+
+      <section class="card">
+        <div class="section-head"><span>3</span><div><h2>Lift Photos</h2><p>Take/upload clear photos of the machine and any inspection items that document its condition.</p></div></div>
+        <div class="photo-grid">
+          <label class="photo-box">Machine / Full Lift Photo<input type="file" accept="image/*" capture="environment" data-photo="fullLift"><span class="photo-button">📷 Take / Choose Photo</span><div class="preview" data-preview="fullLift"></div></label>
+          <label class="photo-box">Unit ID / Model / Serial<input type="file" accept="image/*" capture="environment" data-photo="unitId"><span class="photo-button">📷 Take / Choose Photo</span><div class="preview" data-preview="unitId"></div></label>
+          <label class="photo-box">Controls / Dashboard<input type="file" accept="image/*" capture="environment" data-photo="controls"><span class="photo-button">📷 Take / Choose Photo</span><div class="preview" data-preview="controls"></div></label>
+          <label class="photo-box">Safety Equipment / Labels<input type="file" accept="image/*" capture="environment" data-photo="safety"><span class="photo-button">📷 Take / Choose Photo</span><div class="preview" data-preview="safety"></div></label>
+          <label class="photo-box">Damage / Defect (if applicable)<input type="file" accept="image/*" capture="environment" data-photo="defect"><span class="photo-button">📷 Take / Choose Photo</span><div class="preview" data-preview="defect"></div></label>
+          <label class="photo-box">Additional Photo<input type="file" accept="image/*" capture="environment" data-photo="additional"><span class="photo-button">📷 Take / Choose Photo</span><div class="preview" data-preview="additional"></div></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-head"><span>4</span><div><h2>Operator Acknowledgment</h2><p>Confirm the inspection before submitting the record.</p></div></div>
+        <label class="attest"><input type="checkbox" name="attestation" required><span>I confirm that I completed this pre-use inspection and reported any unsafe condition or defect identified above. I will not operate equipment that is unsafe or defective.</span></label>
+        <label class="full-label">Electronic Signature (type full name)<input name="signature" required></label>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="secondary" id="saveBtn">Save Draft</button>
+        <button type="button" class="secondary" id="clearBtn">Clear Form</button>
+        <button type="submit" class="primary">Complete Inspection</button>
+      </div>
+    </form>
+
+    <section id="result" class="card result" hidden>
+      <div class="result-head"><div><h2>Inspection Completed</h2><p id="resultSummary"></p></div><span id="resultBadge" class="badge"></span></div>
+      <div id="reportPreview"></div>
+      <div class="actions"><button type="button" class="primary" id="printBtn">Print / Save PDF</button><button type="button" class="secondary" id="jsonBtn">Download Record</button></div>
+      <p class="small-note">Photos are included in the browser report preview and print dialog. This GitHub Pages version does not permanently store uploaded photos on GitHub.</p>
+    </section>
+
+    <details class="reference"><summary>Reference image from the current YSD draft</summary><img src="assets/lift-reference.png" alt="Aerial lift reference diagram from the YSD draft"></details>
+    <footer>YSD Safety • Aerial Lift Pre-Inspection • Mobile Web Form</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
